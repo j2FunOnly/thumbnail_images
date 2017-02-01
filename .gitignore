@@ -1,0 +1,6 @@
+/img/*
+!/img/.keep
+/tmp/*
+!/tmp/.keep
+/output/*
+!/output/.keep
