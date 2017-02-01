@@ -17,6 +17,7 @@ MiniMagick::Tool::Convert.new do |b|
     thumb_index = i % COLS
     thumb = MiniMagick::Image.open img
     thumb_width = (thumb_index == COLS - 1) ? LAST_THUMB_WIDTH : THUMB_WIDTH
+    thumb.auto_orient
     thumb.resize "#{thumb_width}x"
     thumb.write "tmp/tmp_photo_#{i}.jpg"
     b << "tmp/tmp_photo_#{i}.jpg"
