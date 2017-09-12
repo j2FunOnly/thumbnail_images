@@ -1,4 +1,5 @@
 RSpec.describe ThumbnailImages::ImageFile do
+  # 640x640
   let(:image_file) { 'spec/fixtures/images/image001.jpg' }
   subject { described_class.new image_file}
 

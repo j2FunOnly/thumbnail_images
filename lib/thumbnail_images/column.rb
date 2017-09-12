@@ -15,5 +15,9 @@ module ThumbnailImages
     def size
       @images.size
     end
+
+    def <=>(other)
+      height <=> other.height
+    end
   end
 end

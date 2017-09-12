@@ -9,8 +9,8 @@ RSpec.describe ThumbnailImages::Column do
     let(:image2) { ThumbnailImages::ImageFile.new(image2_file) }
 
     it 'should have initial zero size and height' do
-      expect(subject.size).to eq(0)
-      expect(subject.height).to eq(0)
+      expect(subject.size).to be_zero
+      expect(subject.height).to be_zero
     end
 
     it 'should add image successfully' do
