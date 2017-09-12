@@ -1,9 +1,9 @@
 require 'mini_magick'
 require 'fileutils'
 
-A4_WIDTH = 1654
-A4_HEIGHT = 2339
-COLS = 5
+A4_WIDTH = 2339
+A4_HEIGHT = 1654 * 3
+COLS = 4
 THUMB_WIDTH = A4_WIDTH / COLS
 LAST_THUMB_WIDTH = A4_WIDTH - THUMB_WIDTH * (COLS - 1)
 
