@@ -7,7 +7,8 @@ module ThumbnailImages
       @height = 0
     end
 
-    def add(image)
+    def add(filename)
+      image = ImageFile.new filename
       @images.push image
       @height += image.height
     end

@@ -27,14 +27,14 @@ RSpec.describe ThumbnailImages::ColumnsList do
 
   describe '#add' do
     it 'should add image to the one of the columns' do
-      subject.add image1
+      subject.add image1_file
       expect(subject.size).to eq(1)
     end
 
     it 'should add image to the column with minimal height' do
-      subject.add image3
-      subject.add image2
-      subject.add image1
+      subject.add image3_file
+      subject.add image2_file
+      subject.add image1_file
       expect(subject.size).to eq(3)
       expect(subject.columns[1].size).to eq(2)
     end
