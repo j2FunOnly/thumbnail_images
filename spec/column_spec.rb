@@ -1,5 +1,15 @@
 RSpec.describe ThumbnailImages::Column do
-  describe '#add' do
+  let(:config) do
+    config = instance_double('ThumbnailImages::Configuration')
+    allow(config).to receive(:column_width).and_return(640)
+    config
+  end
+
+  subject do
+    described_class.new config.column_width
+  end
+
+  describe '#add_and_resize' do
     # 640x640
     let(:image1_file) { 'spec/fixtures/images/image001.jpg' }
     let(:image1) { MiniMagick::Image.open image1_file }
@@ -14,17 +24,18 @@ RSpec.describe ThumbnailImages::Column do
     end
 
     it 'should add image successfully' do
-      subject.add image1_file
+      subject.add_and_resize image1_file
 
       expect(subject.size).to eq(1)
       expect(subject.height).to eq(image1.height)
     end
 
     it 'should calculate height of all added images' do
-      total_heigth = image1.height + image2.height
+      subject.add_and_resize image1_file
+      subject.add_and_resize image2_file
 
-      subject.add image1_file
-      subject.add image2_file
+      total_heigth = image1.resize("#{config.column_width}x").height
+      total_heigth += image2.resize("#{config.column_width}x").height
 
       expect(subject.size).to eq(2)
       expect(subject.height).to eq(total_heigth)

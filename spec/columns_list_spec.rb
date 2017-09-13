@@ -8,13 +8,13 @@ RSpec.describe ThumbnailImages::ColumnsList do
   # 693x1280
   let(:image3_file) { 'spec/fixtures/images/image003.jpg' }
 
-  let(:columns_count) { 2 }
+  let(:config) { ThumbnailImages::Configuration.new.tap { |c| c.columns = 2 } }
 
-  subject { described_class.new columns_count }
+  subject { described_class.new config }
 
   describe '#initialize' do
     it 'should have declared columns count' do
-      expect(subject.columns_count).to eq(columns_count)
+      expect(subject.columns_count).to eq(config.columns)
     end
 
     it 'should have zero images' do
@@ -32,6 +32,7 @@ RSpec.describe ThumbnailImages::ColumnsList do
       subject.add image3_file
       subject.add image2_file
       subject.add image1_file
+
       expect(subject.size).to eq(3)
       expect(subject.columns[1].size).to eq(2)
     end

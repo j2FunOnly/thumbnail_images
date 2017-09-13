@@ -1,8 +1,13 @@
 RSpec.describe ThumbnailImages::Configuration do
   describe 'default configuration' do
     let(:default_columns) { 4 }
+    let(:default_padding) { 5 }
     let(:default_height) { ThumbnailImages::A4[:HEIGHT] * 3 }
-    let(:default_column_width) { ThumbnailImages::A4[:WIDTH] / default_columns }
+    let(:default_column_width) do
+      columns_delimeters = default_padding * (default_columns - 1)
+      width_without_padding = ThumbnailImages::A4[:WIDTH] - columns_delimeters
+      width_without_padding / default_columns
+    end
 
     it 'should have 4 columns' do
       expect(subject.columns).to eq(default_columns)

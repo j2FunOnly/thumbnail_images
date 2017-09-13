@@ -2,10 +2,13 @@ module ThumbnailImages
   class ColumnsList
     attr_reader :columns
 
-    def initialize(columns_count = 1)
+    def initialize(config)
       @columns = []
       @images = 0
-      columns_count.times { @columns.push Column.new }
+
+      config.columns.times do
+        @columns.push Column.new(config.column_width)
+      end
     end
 
     def columns_count
@@ -17,7 +20,7 @@ module ThumbnailImages
     end
 
     def add(filename)
-      min_column.add filename
+      min_column.add_and_resize filename
       @images += 1
     end
 
