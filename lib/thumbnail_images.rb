@@ -21,59 +21,44 @@ module ThumbnailImages
 
     def process_images(path = 'src')
       MiniMagick.logger.level = Logger::DEBUG if config.debug
-      # print 'Finding images...'
       images = Dir.glob "#{path}/*.jpg"
-      list = ColumnsList.new(config.columns)
+      list = ColumnsList.new(count: config.columns, width: config.column_width)
       images.each do |f|
         list.add f
-        # print '.'
       end
       puts
 
-      column_files = []
+      column_files = list.columns.map.with_index do |column, column_i|
+        column_file = "tmp/column_#{column_i}.jpg"
 
-      # print 'Resizing...'
-      list.columns.each_with_index do |column, column_i|
         MiniMagick::Tool::Convert.new do |b|
           b.size "#{config.column_width}x#{config.list_height}"
           b << 'xc:white'
           v_offset = 0
 
-          column.images.each_with_index do |img, img_i|
-            # print '.'
-            # thumb = MiniMagick::Image.open img.filename
-            # thumb.auto_orient
-            # thumb.resize "#{config.column_width}x"
-            # thumb_filename = "tmp/tmp_image_#{column_i}_#{img_i}.jpg"
-            # thumb.write thumb_filename
-
-            img.combine_options do |i|
-              i.auto_orient
-              i.resize "#{config.column_width}x"
-            end
-
-            # b << thumb
+          column.images.each do |img|
             b << img.path
             b.geometry "+0+#{v_offset}"
-            v_offset += img.height
+            v_offset += img.height + config.padding
             b.composite
           end
-          column_file = "tmp/column_#{column_i}.jpg"
-          b << "tmp/column_#{column_i}.jpg"
-          column_files << column_file
+
+          b << column_file
         end
+
+        column_file
       end
 
       puts
+      # p column_files
 
-      # print 'Building final image...'
       MiniMagick::Tool::Convert.new do |b|
         b.size "#{A4[:WIDTH]}x#{config.list_height}"
         b << 'xc:white'
+        # h_offset = 0
         column_files.each_with_index do |f, i|
-          # print '.'
           b << f
-          b.geometry "+#{config.column_width * i}+0"
+          b.geometry "+#{(config.column_width + config.padding) * i}+0"
           b.composite
         end
         b << 'output/events.jpg'
