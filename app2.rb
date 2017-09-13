@@ -1,5 +1,10 @@
 require_relative 'lib/thumbnail_images'
 require 'fileutils'
 
-# ThumbnailImages.configure { |c| c.columns = 4 }
+ThumbnailImages.configure do|c|
+  # c.columns = 1
+  # c.list_height = 1
+  c.debug = true
+end
+
 ThumbnailImages.process_images 'img'

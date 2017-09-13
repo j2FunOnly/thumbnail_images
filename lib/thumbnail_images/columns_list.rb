@@ -2,7 +2,7 @@ module ThumbnailImages
   class ColumnsList
     attr_reader :columns
 
-    def initialize(columns_count)
+    def initialize(columns_count = 1)
       @columns = []
       @images = 0
       columns_count.times { @columns.push Column.new }

@@ -1,10 +1,12 @@
 module ThumbnailImages
   class Configuration
     attr_reader :columns, :column_width, :list_height
+    attr_accessor :debug
 
     def initialize
       self.columns = 4
       self.list_height = 3
+      @debug = false
     end
 
     def columns=(v)

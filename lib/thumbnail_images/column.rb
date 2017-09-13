@@ -8,7 +8,9 @@ module ThumbnailImages
     end
 
     def add(filename)
-      image = ImageFile.new filename
+      # image = ImageFile.new filename
+      # @images.push image
+      image = MiniMagick::Image.open filename
       @images.push image
       @height += image.height
     end

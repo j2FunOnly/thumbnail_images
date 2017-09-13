@@ -1,15 +1,12 @@
 RSpec.describe ThumbnailImages::ColumnsList do
   # 640x640
   let(:image1_file) { 'spec/fixtures/images/image001.jpg' }
-  let(:image1) { ThumbnailImages::ImageFile.new image1_file }
 
   # 1280x853
   let(:image2_file) { 'spec/fixtures/images/image002.jpg' }
-  let(:image2) { ThumbnailImages::ImageFile.new(image2_file) }
 
   # 693x1280
   let(:image3_file) { 'spec/fixtures/images/image003.jpg' }
-  let(:image3) { ThumbnailImages::ImageFile.new image3_file }
 
   let(:columns_count) { 2 }
 

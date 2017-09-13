@@ -2,11 +2,11 @@ RSpec.describe ThumbnailImages::Column do
   describe '#add' do
     # 640x640
     let(:image1_file) { 'spec/fixtures/images/image001.jpg' }
-    let(:image1) { ThumbnailImages::ImageFile.new(image1_file) }
+    let(:image1) { MiniMagick::Image.open image1_file }
 
     # 1280x853
     let(:image2_file) { 'spec/fixtures/images/image002.jpg' }
-    let(:image2) { ThumbnailImages::ImageFile.new(image2_file) }
+    let(:image2) { MiniMagick::Image.open(image2_file) }
 
     it 'should have initial zero size and height' do
       expect(subject.size).to be_zero
