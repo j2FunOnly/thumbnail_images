@@ -1,6 +1,6 @@
 module ThumbnailImages
   class Column
-    attr_reader :height
+    attr_reader :height, :images
 
     def initialize
       @images = []

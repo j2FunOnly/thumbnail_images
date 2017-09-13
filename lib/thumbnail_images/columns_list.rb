@@ -16,8 +16,8 @@ module ThumbnailImages
       @images
     end
 
-    def add(image)
-      min_column.add image
+    def add(filename)
+      min_column.add filename
       @images += 1
     end
 
