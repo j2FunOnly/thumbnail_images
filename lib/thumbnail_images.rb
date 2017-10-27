@@ -54,6 +54,7 @@ module ThumbnailImages
       MiniMagick::Tool::Convert.new do |b|
         b.size "#{A4[:WIDTH]}x#{config.list_height}"
         b << 'xc:white'
+        # h_offset = 0
         column_files.each_with_index do |f, i|
           b << f
           b.geometry "+#{(config.column_width + config.padding) * i}+0"
